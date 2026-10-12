@@ -1,5 +1,5 @@
 import YahooFinance from 'yahoo-finance2';
-const yahooFinance = new YahooFinance();
+
 import { buildReport } from '@/lib/analyze';
 
 export const dynamic = 'force-dynamic';
