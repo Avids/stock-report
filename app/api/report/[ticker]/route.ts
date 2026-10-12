@@ -19,7 +19,12 @@ export async function GET(_req: Request, { params }: { params: Promise<{ ticker:
       return Response.json({ error: `No data found for ${sym}.` }, { status: 404 });
     }
     return Response.json(buildReport(q));
-  } catch {
-    return Response.json({ error: 'The data provider did not respond. Try again.' }, { status: 502 });
+  } catch (e) {
+    console.error('yahoo-finance2 failed for', sym, e);
+    const message = e instanceof Error ? e.message : String(e);
+    return Response.json(
+      { error: `Data provider error: ${message.slice(0, 200)}` },
+      { status: 502 },
+    );
   }
 }
